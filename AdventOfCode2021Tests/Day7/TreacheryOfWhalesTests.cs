@@ -7,13 +7,16 @@ using AdventOfCode2021.Day7;
 
 namespace AdventOfCode2021Tests.Day7
 {
-    // TODO: fill out test cases later
     public class TreacheryOfWhalesTests
     {
-        [Test]
-        public void Test1()
-        {
+        private string path = "C:\\Users\\limbo\\source\\repos\\AdventOfCode2021\\AdventOfCode2021\\day7\\Inputs\\big_input.txt";
 
+        [Test]
+        public void BigInputTestPart2()
+        {
+            int[] horizontalInputs = TreacheryOfWhales.ReadInputs(path);
+            int minFuelCost = TreacheryOfWhales.GetMinimumFuelCost(horizontalInputs);
+            Assert.AreEqual(98231647, minFuelCost);
         }
     }
 }

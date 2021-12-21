@@ -1,7 +1,8 @@
 ﻿using System;
 using System.IO;
 using System.Linq;
-using AdventOfCode2021.Day7;
+using System.Collections.Generic;
+using AdventOfCode2021.Day9;
 
 namespace AdventOfCode2021
 {
@@ -9,11 +10,10 @@ namespace AdventOfCode2021
     {
         static void Main(string[] args)
         {
-            // big input part1: 348996
-            string fullPath = "C:\\Users\\limbo\\source\\repos\\AdventOfCode2021\\AdventOfCode2021\\day7\\Inputs\\big_input.txt";
-            var inputs = TreacheryOfWhales.ReadInputs(fullPath);
-            int minFuelCost = TreacheryOfWhales.GetMinimumFuelCost(inputs);
-            Console.WriteLine(minFuelCost);
+            string fullPath = "C:\\Users\\limbo\\source\\repos\\AdventOfCode2021\\AdventOfCode2021\\day9\\Inputs\\small_input.txt";
+            List<List<int>> heightValues = SmokeBasin.ReadInputs(fullPath);
+            int product = SmokeBasin.GetLargestBasinsProduct(heightValues);
+            Console.WriteLine(product);
         }
     }
 }
