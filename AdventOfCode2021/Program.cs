@@ -2,7 +2,7 @@
 using System.IO;
 using System.Linq;
 using System.Collections.Generic;
-using AdventOfCode2021.Day12;
+using AdventOfCode2021.Day13;
 
 namespace AdventOfCode2021
 {
@@ -10,28 +10,31 @@ namespace AdventOfCode2021
     {
         static void Main(string[] args)
         {
-            string fullPath = "C:\\Users\\limbo\\source\\repos\\AdventOfCode2021\\AdventOfCode2021\\day12\\Inputs\\sample4.txt";
-            List<string> caveConnections = PassagePathing.ReadInputs(fullPath);
-            var caveSystem = PassagePathing.ConstructCaveSystem(caveConnections);
-            int count = PassagePathing.CountUniquePaths(caveSystem, true);
+            string fullPath = "C:\\Users\\limbo\\source\\repos\\AdventOfCode2021\\AdventOfCode2021\\day13\\Inputs\\big_input.txt";
+            var manual = TransparentOrigami.ReadInputs(fullPath);
 
-            Console.WriteLine(count);
+            int[] maxXYUnits = TransparentOrigami.GetMaxXYUnits(manual.coordinates);
+            var transparentPaper = TransparentOrigami.DrawTransparentPaper(manual.coordinates, maxXYUnits);
 
-            //int paths = PassagePathing.CountUniqueCavePaths(rootCave);
+            // transparentPaper.FoldHorizontally(655);
 
-            //Console.WriteLine("unique paths: " + paths);
+            transparentPaper.FoldPaperUsingInstructions(manual.instructions);
 
-            //var queue = new Queue<PassagePathing.GraphNode>();
-            //queue.Enqueue(rootCave);
-            //while (queue.Count > 0)
-            //{
-            //    var currentCave = queue.Dequeue();
-            //    Console.WriteLine("visited cave: " + currentCave.name);
-            //    foreach(var adjacentCave in currentCave.adjacentNodes)
-            //    {
-            //        queue.Enqueue(adjacentCave);
-            //    }
-            //}
+            for (int r = 0; r < transparentPaper.currentMaxY; ++r)
+            {
+                for (int c = 0; c < transparentPaper.currentMaxX; ++c)
+                {
+                    Console.Write(transparentPaper.source[r, c]);
+                }
+                Console.WriteLine();
+            }
+
+            Console.WriteLine("\n\n");
+
+            int result = transparentPaper.CountHashes();
+
+            Console.WriteLine("hello world: " + result);
+
         }
     }
 }
