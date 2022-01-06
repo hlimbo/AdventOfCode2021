@@ -56,10 +56,6 @@ namespace AdventOfCode2021
 
             // 2811 low number -- bad answer
             // Console.WriteLine(debugPath.riskCost);
-
-            //var puzz = new Chiton.Puzz15(fullPath);
-            //long ans = puzz.GiveMeTheAnswerPart20();
-            //Console.WriteLine(ans);
         }
     }
 }
