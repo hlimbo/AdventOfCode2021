@@ -16,8 +16,8 @@ namespace AdventOfCode2021
             var riskLevelMap = Chiton.ReadInputs(fullPath);
 
             // answer: 388
-            //int min = Chiton.Dijkstra(riskLevelMap);
-            //Console.WriteLine(min);
+            var riskPath1 = Chiton.Dijkstra(riskLevelMap);
+            Console.WriteLine(riskPath1.minRiskCost);
 
             var caveSystem = Chiton.ExtendRiskTilesToFormCaveMap(riskLevelMap, 5);
 
@@ -35,23 +35,10 @@ namespace AdventOfCode2021
 
 
             var map = Chiton.ConvertJaggedArrayToListOfLists(caveSystem);
-            var debugPath = Chiton.Dijkstra(map);
-
-            // get path starting from end vertex to start vertex
-            var current = debugPath.endVertex;
-            int totalRiskCost = 0;
-            while (current != null)
-            {
-                totalRiskCost += map[current.row][current.col];
-                // Console.WriteLine(map[current.row][current.col]);
-                current = debugPath.prevVertex[current];
-            }
-
-            // exclude start vertex
-            totalRiskCost = totalRiskCost - map[0][0];
+            var riskPath = Chiton.Dijkstra(map);
 
             // answer 2819
-            Console.WriteLine("cost: " + totalRiskCost);
+            Console.WriteLine("cost: " + riskPath.minRiskCost);
 
 
             // 2811 low number -- bad answer

@@ -176,21 +176,23 @@ namespace AdventOfCode2021.Day15
             }
         }
 
-        public class DebugPath
+        public class RiskPath
         {
             public Dictionary<Vertex, Vertex> prevVertex;
             public Vertex endVertex;
             public int riskCost;
+            public int minRiskCost;
 
-            public DebugPath(Dictionary<Vertex, Vertex> prevVertex,Vertex endVertex, int riskCost)
+            public RiskPath(Dictionary<Vertex, Vertex> prevVertex,Vertex endVertex, int riskCost, int minRiskCost)
             {
                 this.riskCost = riskCost;
                 this.endVertex = endVertex;
                 this.prevVertex = prevVertex;
+                this.minRiskCost = minRiskCost;
             }
         }
 
-        public static DebugPath Dijkstra(List<List<int>> riskLevelMap)
+        public static RiskPath Dijkstra(List<List<int>> riskLevelMap)
         {
             var vertexComparer = new VertexEqualityComparer();
 
@@ -244,11 +246,20 @@ namespace AdventOfCode2021.Day15
 
             }
 
-            // possibly calculate the min risk cost by backtracking through the path using previous node to add up all risks together
-            // remember to exclude the top left corner of the map since that is where the submarine starts on
-
+            // get path starting from end vertex to start vertex
             var endVertex = new Vertex(rowCount - 1, colCount - 1);
-            return new DebugPath(previousNode, endVertex, distances[endVertex]);
+            var current = endVertex;
+            int totalRiskCost = 0;
+            while (current != null)
+            {
+                totalRiskCost += riskLevelMap[current.row][current.col];
+                // Console.WriteLine(map[current.row][current.col]);
+                current = previousNode[current];
+            }
+
+            // exclude start vertex
+            totalRiskCost = totalRiskCost - riskLevelMap[0][0];
+            return new RiskPath(previousNode, endVertex, distances[endVertex], totalRiskCost);
         }
 
         private static List<Vertex> GetNeighbors(Vertex source, int rowCount, int colCount)
