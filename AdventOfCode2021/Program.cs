@@ -2,47 +2,35 @@
 using System.IO;
 using System.Linq;
 using System.Collections.Generic;
-using AdventOfCode2021.Day15;
+using AdventOfCode2021.Day16;
 
 namespace AdventOfCode2021
 {
     class Program
     {
-        // actual
-        // "NCNBNHNNCB"
         static void Main(string[] args)
         {
-            string fullPath = "C:\\Users\\limbo\\source\\repos\\AdventOfCode2021\\AdventOfCode2021\\day15\\Inputs\\big_input.txt";
-            var riskLevelMap = Chiton.ReadInputs(fullPath);
+            // part 1: 947
+            string fullPath = "C:\\Users\\limbo\\source\\repos\\AdventOfCode2021\\AdventOfCode2021\\day16\\Inputs\\equal_to_input.txt";
+            string hexValues = PacketDecoder.ReadInputs(fullPath);
+            string binaryValues = PacketDecoder.ConvertHexToBinary(hexValues);
 
-            // answer: 388
-            var riskPath1 = Chiton.Dijkstra(riskLevelMap);
-            Console.WriteLine(riskPath1.minRiskCost);
+            //long sum = PacketDecoder.CalculatePacketVersionsSum(binaryValues);
+            //Console.WriteLine("sum: " + sum);
 
-            var caveSystem = Chiton.ExtendRiskTilesToFormCaveMap(riskLevelMap, 5);
+            int bitCounter = 0;
+            var packet = PacketDecoder.ReadPacket(binaryValues, ref bitCounter);
+            var answer = PacketDecoder.EvaluatePacket(packet);
 
-            int rowCount = caveSystem.GetLength(0);
-            int colCount = caveSystem.GetLength(1);
+            int bitCounter2 = 0;
+            var packets = PacketDecoder.ParseBinary(binaryValues, ref bitCounter2);
+            long answer2 = PacketDecoder.CalculatePacketAnswer(packets, -1);
 
-            //for (int r = 0; r < rowCount; ++r)
-            //{
-            //    for (int c = 0; c < colCount; ++c)
-            //    {
-            //        Console.Write(caveSystem[r, c]);
-            //    }
-            //    Console.WriteLine();
-            //}
+            // 660797830937
+            Console.WriteLine(answer);
 
-
-            var map = Chiton.ConvertJaggedArrayToListOfLists(caveSystem);
-            var riskPath = Chiton.Dijkstra(map);
-
-            // answer 2819
-            Console.WriteLine("cost: " + riskPath.minRiskCost);
-
-
-            // 2811 low number -- bad answer
-            // Console.WriteLine(debugPath.riskCost);
+            //long result = PacketDecoder.CalculateAnswer(binaryValues);
+            //Console.WriteLine(result);
         }
     }
 }
